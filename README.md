@@ -126,4 +126,4 @@ docSlider.js works on modern browser as Chrome, Firefox, Safari, Edge, IE11.
 ## License
 Created by SamWest.<br>
 Copyright (c) 2020 SamWest.<br>
-This software is released under the MIT License.
+This plugin is released under the MIT License.
