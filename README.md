@@ -1,5 +1,5 @@
 # docSlider.js
-docSlider is a JavaScript plugin that works without jQuery.<br>
+docSlider.js is a JavaScript plugin that works without jQuery.<br>
 Change the entire web page to the slide contents.
 
 ## Demo
@@ -122,7 +122,7 @@ You can avoid the mouse wheel event conflict by simply adding the class name `"d
 |[ ArrowLeft ]|Jump to previous page.(horizontal mode only)|
 
 ## Browser support
-docSlider works on modern browser as Chrome, Firefox, Safari, Edge, IE11.
+docSlider.js works on modern browser as Chrome, Firefox, Safari, Edge, IE11.
 ## License
 Created by SamWest.<br>
 Copyright (c) 2020 SamWest.<br>
