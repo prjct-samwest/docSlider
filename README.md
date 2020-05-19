@@ -77,11 +77,11 @@ docSlider.init({
 
 #### jumpPage method example 
 ```javascript
-docSlider.init(2);  // Jumps to the page with index number 2 (page 3).
+docSlider.jumpPage(2);  // Jumps to the page with index number 2 (page 3).
 ```
 #### jumpPage method example (using a hashtag)
 ```javascript
-docSlider.init('foo');  // Jumps to the page with id name 'foo' (page 2).
+docSlider.jumpPage('foo');  // Jumps to the page with id name 'foo' (page 2).
 ```
 When using the hash tag jump, it is necessary to set the ID name as necessary.
 ```html
