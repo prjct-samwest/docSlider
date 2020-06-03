@@ -1,0 +1,26 @@
+{
+  "name": "docslider",
+  "version": "2.0.0",
+  "description": "docSlider.js is a JavaScript plugin that works without jQuery. Change the web sections to a one-page scroll.",
+  "keywords": ["slider", "vanilla js", "one page scroll"],
+  "main": "docSlider.min.js",
+  "files": [
+    "README.md",
+    "LICENSE",
+    "package.json",
+    "docSlider.js",
+    "docSlider.min.js",
+    "docSlider.scss",
+    "docSlider.css"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/prjct-samwest/docSlider.git"
+  },
+  "author": "SamWest <prjct.samwest@gmail.com>(https://github.com/prjct-samwest/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/prjct-samwest/docSlider/issues"
+  },
+  "homepage": "https://github.com/prjct-samwest/docSlider#readme"
+}
