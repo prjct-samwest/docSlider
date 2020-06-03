@@ -31,7 +31,7 @@ npm install docslider
 ```
 
 ### File Download
-https://github.com/prjct-samwest/docSlider/archive/release-2.0.0.zip
+https://github.com/prjct-samwest/docSlider/archive/v2.0.1
 
 ## Usage
 
