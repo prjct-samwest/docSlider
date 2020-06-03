@@ -231,7 +231,7 @@ You can avoid mouse wheel event conflicts by simply adding the class name `"docS
 docSlider.js works on modern browser as Chrome, Firefox, Safari, Edge, IE11.
 
 ## Version
-The latest version is 2.0.0.
+The latest version is 2.0.1
 
 ## License
 Created by SamWest.  

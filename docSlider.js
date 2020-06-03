@@ -1,6 +1,6 @@
 /**-----------------------
 
- docSlider.js - ver.2.0.0
+ docSlider.js - ver.2.0.1
  URL : https://prjct-samwest.github.io/docSlider/
  created by SamWest
  Copyright (c) 2020 SamWest.
