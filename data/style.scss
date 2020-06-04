@@ -141,3 +141,41 @@ a{
   border-bottom: 5px solid #158835;
   border-radius: 3px;
 }
+
+@media screen and (max-width: 667px){
+
+  h2{
+    font-size: 24px;
+  }
+
+  .Header{
+
+    .Header-btns{
+      float: none;
+      line-height: 1;
+    }
+
+    .Header-logo{
+      font-size: 30px;
+      text-align: center;
+      display: block;
+      margin: 0 0 10px;
+      line-height: 1;
+      top: .3em;
+    }
+
+  }
+
+  .Inner{
+    padding: 30px 40px;
+  }
+
+  .Start p{
+    text-align: left;
+  }
+
+  .btn{
+    width: 100%;
+  }
+
+}
