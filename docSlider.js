@@ -1,6 +1,6 @@
 /**-----------------------
 
- docSlider.js - ver.2.0.1
+ docSlider.js - ver.2.0.2
  URL : https://prjct-samwest.github.io/docSlider/
  created by SamWest
  Copyright (c) 2020 SamWest.
@@ -188,7 +188,6 @@ const docSlider = (function () {
                 const button = d.buttons[i];
 
                 page.addEventListener('focusin',u.focusin);
-                page.addEventListener('focusout',u.focusout);
 
                 if(button === undefined)
                     continue;
@@ -336,12 +335,6 @@ const docSlider = (function () {
 
             u.updatePager();
             u.updateClass();
-
-        },
-
-        focusout : function(){
-
-            d.active = null;
 
         },
 
