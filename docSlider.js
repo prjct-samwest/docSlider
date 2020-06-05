@@ -116,7 +116,7 @@ const docSlider = (function () {
 
                 for(let i = 0; i < pageLength; i++){
 
-                    const button = buttons[i];
+                    let button = buttons[i];
 
                     button.setAttribute('data-ds-jump',i.toString());
                     button.setAttribute('tabindex','-1');
@@ -130,7 +130,7 @@ const docSlider = (function () {
 
                 for(let i = 0; i < pageLength; i++){
 
-                    const button = document.createElement('button');
+                    let button = document.createElement('button');
 
                     button.classList.add('docSlider-button');
                     button.setAttribute('data-ds-jump',i.toString());
@@ -242,13 +242,13 @@ const docSlider = (function () {
 
                 setTimeout(function () {
 
-                    d.pages[to].focus({preventScroll :false});
+                    u.move(to);
 
-                },200)
+                },200);
 
             }else{
 
-                d.pages[to].focus({preventScroll :false});
+                u.move(to);
 
             }
 
@@ -290,6 +290,14 @@ const docSlider = (function () {
         focusin : function(){
 
             const to = Number(this.getAttribute('data-ds-index'));
+
+            u.move(to);
+
+        },
+
+        move : function(to){
+
+            d.pages[to].focus();
 
             d.active = d.pages[to];
 
@@ -346,7 +354,7 @@ const docSlider = (function () {
             const to = Number(this.getAttribute('data-ds-jump'));
 
             d.type = 'pager';
-            d.pages[to].focus({preventScroll :false});
+            u.move(to);
 
         },
 
@@ -436,7 +444,7 @@ const docSlider = (function () {
                 return;
 
             d.type = 'key';
-            d.pages[to].focus({preventScroll :false});
+            u.move(to);
 
         },
 
@@ -490,7 +498,7 @@ const docSlider = (function () {
 
 
                 d.type = 'scroll';
-                d.pages[to].focus({preventScroll :false});
+                u.move(to);
 
             });
 
@@ -601,7 +609,7 @@ const docSlider = (function () {
             }
 
             d.type = 'scroll';
-            d.pages[to].focus({preventScroll :false});
+            u.move(to);
 
         }
 
@@ -644,7 +652,7 @@ const docSlider = (function () {
             d.easing = easing === undefined ? null : easing;
             d.type   = 'jumpPage';
 
-            d.pages[index].focus({preventScroll :false});
+            u.move(index);
 
         },
 
@@ -656,7 +664,7 @@ const docSlider = (function () {
             d.easing = easing === undefined ? null : easing;
             d.type   = 'nextPage';
 
-            d.pages[index].focus({preventScroll :false});
+            u.move(index);
 
         },
 
@@ -668,7 +676,7 @@ const docSlider = (function () {
             d.easing = easing === undefined ? null : easing;
             d.type   = 'prevPage';
 
-            d.pages[index].focus({preventScroll :false});
+            u.move(index);
 
         },
 
