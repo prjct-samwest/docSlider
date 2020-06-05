@@ -153,6 +153,9 @@ a {
     line-height: 1;
     top: .3em;
   }
+  .Mv .Mv-title {
+    font-size: 55px;
+  }
   .Inner {
     padding: 30px 40px;
   }
