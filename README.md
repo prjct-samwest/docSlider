@@ -31,7 +31,7 @@ npm install docslider
 ```
 
 ### File Download
-https://github.com/prjct-samwest/docSlider/archive/v2.0.2.zip
+https://github.com/prjct-samwest/docSlider/archive/v2.0.3.zip
 
 ## Usage
 
@@ -231,7 +231,7 @@ You can avoid mouse wheel event conflicts by simply adding the class name `"docS
 docSlider.js works on modern browser as Chrome, Firefox, Safari, Edge, IE11.
 
 ## Version
-The latest version is 2.0.2
+The latest version is 2.0.3
 
 ## License
 Created by SamWest.  

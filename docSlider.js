@@ -1,6 +1,6 @@
 /**-----------------------
 
- docSlider.js - ver.2.0.2
+ docSlider.js - ver.2.0.3
  URL : https://prjct-samwest.github.io/docSlider/
  created by SamWest
  Copyright (c) 2020 SamWest.
@@ -188,6 +188,7 @@ const docSlider = (function () {
                 const button = d.buttons[i];
 
                 page.addEventListener('focusin',u.focusin);
+                page.addEventListener('focusout',u.focusout);
 
                 if(button === undefined)
                     continue;
@@ -242,13 +243,13 @@ const docSlider = (function () {
 
                 setTimeout(function () {
 
-                    u.move(to);
+                    d.pages[to].focus({preventScroll :false});
 
-                },200);
+                },200)
 
             }else{
 
-                u.move(to);
+                d.pages[to].focus({preventScroll :false});
 
             }
 
@@ -290,14 +291,6 @@ const docSlider = (function () {
         focusin : function(){
 
             const to = Number(this.getAttribute('data-ds-index'));
-
-            u.move(to);
-
-        },
-
-        move : function(to){
-
-            d.pages[to].focus();
 
             d.active = d.pages[to];
 
@@ -346,6 +339,12 @@ const docSlider = (function () {
 
         },
 
+        focusout : function(){
+
+            d.active = null;
+
+        },
+
         pagerClick : function(){
 
             if(!d.enable)
@@ -354,7 +353,7 @@ const docSlider = (function () {
             const to = Number(this.getAttribute('data-ds-jump'));
 
             d.type = 'pager';
-            u.move(to);
+            d.pages[to].focus({preventScroll :false});
 
         },
 
@@ -444,7 +443,7 @@ const docSlider = (function () {
                 return;
 
             d.type = 'key';
-            u.move(to);
+            d.pages[to].focus({preventScroll :false});
 
         },
 
@@ -498,7 +497,7 @@ const docSlider = (function () {
 
 
                 d.type = 'scroll';
-                u.move(to);
+                d.pages[to].focus({preventScroll :false});
 
             });
 
@@ -609,7 +608,7 @@ const docSlider = (function () {
             }
 
             d.type = 'scroll';
-            u.move(to);
+            d.pages[to].focus({preventScroll :false});
 
         }
 
@@ -652,7 +651,7 @@ const docSlider = (function () {
             d.easing = easing === undefined ? null : easing;
             d.type   = 'jumpPage';
 
-            u.move(index);
+            d.pages[index].focus({preventScroll :false});
 
         },
 
@@ -664,7 +663,7 @@ const docSlider = (function () {
             d.easing = easing === undefined ? null : easing;
             d.type   = 'nextPage';
 
-            u.move(index);
+            d.pages[index].focus({preventScroll :false});
 
         },
 
@@ -676,7 +675,7 @@ const docSlider = (function () {
             d.easing = easing === undefined ? null : easing;
             d.type   = 'prevPage';
 
-            u.move(index);
+            d.pages[index].focus({preventScroll :false});
 
         },
 
