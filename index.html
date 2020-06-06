@@ -102,7 +102,14 @@
 
 </div>
 <script src="docSlider.min.js"></script>
-<script>docSlider.init();</script>
+<script>docSlider.init({
+        beforeChange:function () {
+            console.log(arguments[0]);
+        },
+        afterChange:function () {
+            console.log(arguments[0]);
+        }
+    });</script>
 <script async defer src="https://buttons.github.io/buttons.js"></script>
 </body>
 </html>

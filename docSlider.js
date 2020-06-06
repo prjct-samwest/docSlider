@@ -188,7 +188,6 @@ const docSlider = (function () {
                 const button = d.buttons[i];
 
                 page.addEventListener('focusin',u.focusin);
-                page.addEventListener('focusout',u.focusout);
 
                 if(button === undefined)
                     continue;
@@ -243,13 +242,13 @@ const docSlider = (function () {
 
                 setTimeout(function () {
 
-                    d.pages[to].focus({preventScroll :false});
+                    u.pageChange(to);
 
                 },200)
 
             }else{
 
-                d.pages[to].focus({preventScroll :false});
+                u.pageChange(to);
 
             }
 
@@ -288,7 +287,69 @@ const docSlider = (function () {
 
         },
 
+        pageChange : function(to){
+
+            if(d.type !== 'focus')
+                d.pages[to].focus();
+
+            d.active = d.pages[to];
+
+            if(to === d.now)
+                return;
+
+            d.type = d.type ? d.type : 'focus';
+            d.past = d.now;
+            d.now  = to;
+
+            let speed  = d.speed  === null ? op.speed  : d.speed;
+
+            const easing = d.easing === null ? op.easing : d.easing;
+
+            for(let i = 0; i < d.length; i++){
+
+                const page = d.pages[i];
+                const prop = op.setChangeCss(i, d.now, speed, easing, op.horizontal);
+
+                for(let p = 0; p < Object.keys(prop).length; p++){
+
+                    const key = Object.keys(prop)[p];
+
+                    page.style[key] = prop[key];
+
+                }
+
+            }
+
+            if(!speed){
+
+                op.beforeChange(d.past, d.pages[d.past], d.now, d.pages[d.now], d.type);
+                d.pastType = d.type;
+                d.type = null;
+
+                op.afterChange(d.now, d.pages[d.now], d.past, d.pages[d.past], d.pastType);
+                d.pastType = null;
+
+            }
+
+            d.speed  = null;
+            d.easing = null;
+
+            u.updatePager();
+            u.updateClass();
+
+        },
+
         focusin : function(){
+
+            const to = Number(this.getAttribute('data-ds-index'));
+
+            d.type = d.type ? d.type : 'focus';
+
+            u.pageChange(to);
+
+        },
+
+        focusinx : function(){
 
             const to = Number(this.getAttribute('data-ds-index'));
 
@@ -339,12 +400,6 @@ const docSlider = (function () {
 
         },
 
-        focusout : function(){
-
-            d.active = null;
-
-        },
-
         pagerClick : function(){
 
             if(!d.enable)
@@ -353,7 +408,7 @@ const docSlider = (function () {
             const to = Number(this.getAttribute('data-ds-jump'));
 
             d.type = 'pager';
-            d.pages[to].focus({preventScroll :false});
+            u.pageChange(to);
 
         },
 
@@ -443,7 +498,7 @@ const docSlider = (function () {
                 return;
 
             d.type = 'key';
-            d.pages[to].focus({preventScroll :false});
+            u.pageChange(to);
 
         },
 
@@ -494,10 +549,8 @@ const docSlider = (function () {
 
                 }
 
-
-
                 d.type = 'scroll';
-                d.pages[to].focus({preventScroll :false});
+                u.pageChange(to);
 
             });
 
@@ -608,7 +661,7 @@ const docSlider = (function () {
             }
 
             d.type = 'scroll';
-            d.pages[to].focus({preventScroll :false});
+            u.pageChange(to);
 
         }
 
@@ -642,7 +695,6 @@ const docSlider = (function () {
 
             }else{
 
-
                 index = u.indexCheck(to < 0 ? d.length + to : to);
 
             }
@@ -651,7 +703,7 @@ const docSlider = (function () {
             d.easing = easing === undefined ? null : easing;
             d.type   = 'jumpPage';
 
-            d.pages[index].focus({preventScroll :false});
+            u.pageChange(index);
 
         },
 
@@ -663,7 +715,7 @@ const docSlider = (function () {
             d.easing = easing === undefined ? null : easing;
             d.type   = 'nextPage';
 
-            d.pages[index].focus({preventScroll :false});
+            u.pageChange(index);
 
         },
 
@@ -675,7 +727,7 @@ const docSlider = (function () {
             d.easing = easing === undefined ? null : easing;
             d.type   = 'prevPage';
 
-            d.pages[index].focus({preventScroll :false});
+            u.pageChange(index);
 
         },
 
