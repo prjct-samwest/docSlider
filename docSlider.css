@@ -1,12 +1,47 @@
 /**-----------------------
 
- docSlider.js - ver.2.0.4
+ docSlider.js - ver.3.0.0
  URL : https://prjct-samwest.github.io/docSlider/
  created by SamWest
  Copyright (c) 2020 SamWest.
  This plugin is released under the MIT License.
 
  -----------------------**/
+/* CHANGE THE PAGER STYLE */
+.docSlider-pager {
+  position: fixed;
+  z-index: 100;
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
+}
+
+/* CHANGE THE BUTTON STYLE */
+.docSlider-button {
+  height: 18px;
+  width: 18px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: block;
+  margin: 5px 0;
+  background-color: #333;
+  opacity: .25;
+  appearance: none;
+  border: none;
+  box-sizing: border-box;
+}
+
+.docSlider-button.selected {
+  opacity: 1;
+}
+
+.docSlider-button:active {
+  outline: none;
+}
+
+/**------------------------------
+  REWRITING IS NOT RECOMMENDED
+ -----------------------------**/
 html, body {
   overflow: hidden;
   touch-action: none;
@@ -16,9 +51,7 @@ html, body {
 html, body,
 .docSlider,
 .docSlider-inner,
-.docSlider-page,
-.docSlider-pager,
-.docSlider-button {
+.docSlider-page {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -30,9 +63,7 @@ html, body,
 html:active, body:active,
 .docSlider:active,
 .docSlider-inner:active,
-.docSlider-page:active,
-.docSlider-pager:active,
-.docSlider-button:active {
+.docSlider-page:active {
   outline: none;
 }
 
@@ -59,27 +90,4 @@ html:active, body:active,
   overflow: auto;
   position: absolute;
   overflow-scrolling: touch;
-}
-
-.docSlider-pager {
-  position: fixed;
-  z-index: 100;
-  top: 50%;
-  right: 20px;
-  transform: translateY(-50%);
-}
-
-.docSlider-button {
-  height: 18px;
-  width: 18px;
-  border-radius: 50%;
-  background-color: #333;
-  opacity: .25;
-  cursor: pointer;
-  display: block;
-  margin: 5px 0;
-}
-
-.docSlider-button.selected {
-  opacity: 1;
 }

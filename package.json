@@ -14,7 +14,9 @@
     "docSlider.js",
     "docSlider.min.js",
     "docSlider.scss",
-    "docSlider.css"
+    "docSlider.css",
+    "sample.html",
+    "sample_horizontal.html"
   ],
   "repository": {
     "type": "git",

@@ -1,6 +1,6 @@
 /**-----------------------
 
- docSlider.js - ver.2.0.4
+ docSlider.js - ver.3.0.0
  URL : https://prjct-samwest.github.io/docSlider/
  created by SamWest
  Copyright (c) 2020 SamWest.
@@ -11,6 +11,7 @@
 const docSlider = (function () {
 
     let undefined;
+    let sc, pcr;
     let d = {};
 
     const op = {
@@ -19,6 +20,7 @@ const docSlider = (function () {
         pager        : true,
         horizontal   : false,
         startSpeed   : null,
+        scrollReset  : false,
         complete     : function () {},
         beforeChange : function () {},
         afterChange  : function () {},
@@ -92,7 +94,7 @@ const docSlider = (function () {
 
                 page.classList.add('docSlider-page');
                 page.classList.add('docSlider-scroll');
-                page.setAttribute('data-ds-index',i.toString());
+                page.setAttribute('images-ds-index',i.toString());
                 page.setAttribute('tabindex','0');
 
                 inner.appendChild(page);
@@ -114,11 +116,11 @@ const docSlider = (function () {
 
                 const buttons = document.querySelectorAll('.docSlider-button');
 
-                for(let i = 0; i < pageLength; i++){
+                for(let i = 0; i < buttons.length; i++){
 
                     let button = buttons[i];
 
-                    button.setAttribute('data-ds-jump',i.toString());
+                    button.setAttribute('images-ds-jump',i.toString());
                     button.setAttribute('tabindex','-1');
 
                 }
@@ -133,7 +135,7 @@ const docSlider = (function () {
                     let button = document.createElement('button');
 
                     button.classList.add('docSlider-button');
-                    button.setAttribute('data-ds-jump',i.toString());
+                    button.setAttribute('images-ds-jump',i.toString());
                     button.setAttribute('tabindex','-1');
 
                     pager.appendChild(button);
@@ -233,7 +235,7 @@ const docSlider = (function () {
             const to = u.hashToIndex(location.hash);
 
             if(to === d.now)
-                return;
+                return false;
 
             d.speed = op.startSpeed === null ? op.speed : op.startSpeed;
             d.type = 'anchor';
@@ -252,6 +254,8 @@ const docSlider = (function () {
 
             }
 
+            return true;
+
         }
 
     };
@@ -266,10 +270,10 @@ const docSlider = (function () {
 
                     let page = document.querySelector(hash);
 
-                    if(!page || !page.hasAttribute('data-ds-index'))
+                    if(!page || !page.hasAttribute('images-ds-index'))
                         return 0;
 
-                    return Number(page.getAttribute('data-ds-index'));
+                    return Number(page.getAttribute('images-ds-index'));
 
                 }else{
 
@@ -322,9 +326,18 @@ const docSlider = (function () {
 
             if(!speed){
 
+                if(op.scrollReset)
+                    u.scrollReset(d.pages[d.now]);
+
+                if(pcr)
+                    u.animationReset(d.past);
+
                 op.beforeChange(d.past, d.pages[d.past], d.now, d.pages[d.now], d.type);
                 d.pastType = d.type;
                 d.type = null;
+
+                if(sc)
+                    scrollCue._updateWithDocSlider();
 
                 op.afterChange(d.now, d.pages[d.now], d.past, d.pages[d.past], d.pastType);
                 d.pastType = null;
@@ -341,7 +354,7 @@ const docSlider = (function () {
 
         focusin : function(){
 
-            const to = Number(this.getAttribute('data-ds-index'));
+            const to = Number(this.getAttribute('images-ds-index'));
 
             d.type = d.type ? d.type : 'focus';
 
@@ -351,7 +364,7 @@ const docSlider = (function () {
 
         focusinx : function(){
 
-            const to = Number(this.getAttribute('data-ds-index'));
+            const to = Number(this.getAttribute('images-ds-index'));
 
             d.active = d.pages[to];
 
@@ -383,9 +396,18 @@ const docSlider = (function () {
 
             if(!speed){
 
+                if(op.scrollReset)
+                    u.scrollReset(d.pages[d.now]);
+
+                if(pcr)
+                    u.animationReset(d.past);
+
                 op.beforeChange(d.past, d.pages[d.past], d.now, d.pages[d.now], d.type);
                 d.pastType = d.type;
                 d.type = null;
+
+                if(sc)
+                    scrollCue._updateWithDocSlider();
 
                 op.afterChange(d.now, d.pages[d.now], d.past, d.pages[d.past], d.pastType);
                 d.pastType = null;
@@ -405,7 +427,7 @@ const docSlider = (function () {
             if(!d.enable)
                 return;
 
-            const to = Number(this.getAttribute('data-ds-jump'));
+            const to = Number(this.getAttribute('images-ds-jump'));
 
             d.type = 'pager';
             u.pageChange(to);
@@ -418,9 +440,15 @@ const docSlider = (function () {
 
                 const button = d.buttons[i];
 
+                if(button === undefined)
+                    continue;
+
                 button.classList.remove('selected');
 
             }
+
+            if(d.buttons[d.now] === undefined)
+                return ;
 
             d.buttons[d.now].classList.add('selected');
 
@@ -429,12 +457,12 @@ const docSlider = (function () {
         updateClass : function(){
 
             const past      = d.pages[d.past];
-            const pastIndex = past.getAttribute('data-ds-index');
+            const pastIndex = past.getAttribute('images-ds-index');
             const pastPage  = Number(pastIndex) +1;
             const pastId    = past.hasAttribute('id') ? past.getAttribute('id') : false;
 
             const now = d.pages[d.now];
-            const nowIndex = now.getAttribute('data-ds-index');
+            const nowIndex = now.getAttribute('images-ds-index');
             const nowPage  = Number(nowIndex) +1;
             const nowId    = now.hasAttribute('id') ? now.getAttribute('id') : false;
 
@@ -561,6 +589,13 @@ const docSlider = (function () {
         transitionstart : function () {
 
             d.wheelEnable = false;
+
+            if(op.scrollReset)
+                u.scrollReset(d.pages[d.now]);
+
+            if(pcr)
+                u.animationReset(d.past);
+
             op.beforeChange(d.past, d.pages[d.past], d.now, d.pages[d.now], d.type);
             d.pastType = d.type;
             d.type = null;
@@ -570,6 +605,10 @@ const docSlider = (function () {
         transitionend : function () {
 
             d.wheelEnable = true;
+
+            if(sc)
+                scrollCue._updateWithDocSlider();
+
             op.afterChange(d.now, d.pages[d.now], d.past, d.pages[d.past], d.pastType);
             d.pastType = null;
 
@@ -663,7 +702,52 @@ const docSlider = (function () {
             d.type = 'scroll';
             u.pageChange(to);
 
-        }
+        },
+
+        scrollReset : function (page){
+
+            page.scrollTop = 0;
+            page.scrollLeft = 0;
+
+        },
+
+        animationReset : function (index){
+
+            let selector = '[images-scpage][images-show="true"]'
+            let elms = document.querySelectorAll(selector);
+
+            if(!elms.length)
+                return false;
+
+            for(let i=0; i < elms.length; i++){
+
+                let elm = elms[i];
+                let classes = elm.getAttribute('images-addClass');
+
+                if(elm.getAttribute('images-scpage') === index+'')
+                    continue;
+
+                elm.removeAttribute('style');
+                elm.removeAttribute('images-show');
+
+                if(!classes)
+                    continue;
+
+                classes = classes.split(' ');
+
+                for(let j=0; j<classes.length; j++){
+
+                    let className = classes[j];
+
+                    elm.classList.remove(className);
+
+                }
+
+            }
+
+            scrollCue._searchElements();
+
+        },
 
     };
 
@@ -671,12 +755,23 @@ const docSlider = (function () {
 
         init : function (options) {
 
+            let startHash;
+
             f.setOptions(options);
             f.createInner();
             f.createPager();
             f.setData();
             f.setEvent();
-            f.hashJump();
+            startHash = f.hashJump();
+
+            sc = typeof scrollCue === 'undefined' ? false : scrollCue._hasDocSlider();
+            pcr = typeof scrollCue === 'undefined' ? false : scrollCue._hasPageChangeReset();
+
+            if(sc){
+
+                scrollCue._initWithDocSlider(startHash);
+
+            }
 
             op.complete(op, docSlider.getElements());
 
@@ -771,6 +866,11 @@ const docSlider = (function () {
                 d.pages[i].setAttribute('tabindex',tabindex);
 
             }
+
+        },
+        _getWheelEnable : function (){
+
+            return d.wheelEnable;
 
         }
 
