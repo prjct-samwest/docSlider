@@ -1,6 +1,6 @@
 /**-----------------------
 
- docSlider.js - ver.3.0.0
+ docSlider.js - ver.3.0.1
  URL : https://prjct-samwest.github.io/docSlider/
  created by SamWest
  Copyright (c) 2020 SamWest.
@@ -94,7 +94,7 @@ const docSlider = (function () {
 
                 page.classList.add('docSlider-page');
                 page.classList.add('docSlider-scroll');
-                page.setAttribute('images-ds-index',i.toString());
+                page.setAttribute('data-ds-index',i.toString());
                 page.setAttribute('tabindex','0');
 
                 inner.appendChild(page);
@@ -120,7 +120,7 @@ const docSlider = (function () {
 
                     let button = buttons[i];
 
-                    button.setAttribute('images-ds-jump',i.toString());
+                    button.setAttribute('data-ds-jump',i.toString());
                     button.setAttribute('tabindex','-1');
 
                 }
@@ -135,7 +135,7 @@ const docSlider = (function () {
                     let button = document.createElement('button');
 
                     button.classList.add('docSlider-button');
-                    button.setAttribute('images-ds-jump',i.toString());
+                    button.setAttribute('data-ds-jump',i.toString());
                     button.setAttribute('tabindex','-1');
 
                     pager.appendChild(button);
@@ -270,10 +270,10 @@ const docSlider = (function () {
 
                     let page = document.querySelector(hash);
 
-                    if(!page || !page.hasAttribute('images-ds-index'))
+                    if(!page || !page.hasAttribute('data-ds-index'))
                         return 0;
 
-                    return Number(page.getAttribute('images-ds-index'));
+                    return Number(page.getAttribute('data-ds-index'));
 
                 }else{
 
@@ -354,7 +354,7 @@ const docSlider = (function () {
 
         focusin : function(){
 
-            const to = Number(this.getAttribute('images-ds-index'));
+            const to = Number(this.getAttribute('data-ds-index'));
 
             d.type = d.type ? d.type : 'focus';
 
@@ -364,7 +364,7 @@ const docSlider = (function () {
 
         focusinx : function(){
 
-            const to = Number(this.getAttribute('images-ds-index'));
+            const to = Number(this.getAttribute('data-ds-index'));
 
             d.active = d.pages[to];
 
@@ -427,7 +427,7 @@ const docSlider = (function () {
             if(!d.enable)
                 return;
 
-            const to = Number(this.getAttribute('images-ds-jump'));
+            const to = Number(this.getAttribute('data-ds-jump'));
 
             d.type = 'pager';
             u.pageChange(to);
@@ -457,12 +457,12 @@ const docSlider = (function () {
         updateClass : function(){
 
             const past      = d.pages[d.past];
-            const pastIndex = past.getAttribute('images-ds-index');
+            const pastIndex = past.getAttribute('data-ds-index');
             const pastPage  = Number(pastIndex) +1;
             const pastId    = past.hasAttribute('id') ? past.getAttribute('id') : false;
 
             const now = d.pages[d.now];
-            const nowIndex = now.getAttribute('images-ds-index');
+            const nowIndex = now.getAttribute('data-ds-index');
             const nowPage  = Number(nowIndex) +1;
             const nowId    = now.hasAttribute('id') ? now.getAttribute('id') : false;
 
@@ -713,7 +713,7 @@ const docSlider = (function () {
 
         animationReset : function (index){
 
-            let selector = '[images-scpage][images-show="true"]'
+            let selector = '[data-scpage][data-show="true"]'
             let elms = document.querySelectorAll(selector);
 
             if(!elms.length)
@@ -722,13 +722,13 @@ const docSlider = (function () {
             for(let i=0; i < elms.length; i++){
 
                 let elm = elms[i];
-                let classes = elm.getAttribute('images-addClass');
+                let classes = elm.getAttribute('data-addClass');
 
-                if(elm.getAttribute('images-scpage') === index+'')
+                if(elm.getAttribute('data-scpage') === index+'')
                     continue;
 
                 elm.removeAttribute('style');
-                elm.removeAttribute('images-show');
+                elm.removeAttribute('data-show');
 
                 if(!classes)
                     continue;
