@@ -29,6 +29,7 @@
   appearance: none;
   border: none;
   box-sizing: border-box;
+  padding: 0px; /*Fix for iOS [without padding circles are deformed]*/
 }
 
 .docSlider-button.selected {
